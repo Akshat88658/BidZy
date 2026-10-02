@@ -43,8 +43,9 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMsg('');
-    if (!form.email.toLowerCase().includes('.edu') && !form.email.toLowerCase().includes('.edu.in')) {
-      setErrorMsg('College email must contain .edu or .edu.in (e.g. you@college.edu)');
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(form.email)) {
+      setErrorMsg('Please enter a valid email address');
       return;
     }
     if (form.password !== form.confirmPassword) { setErrorMsg('Passwords do not match'); return; }
@@ -153,7 +154,7 @@ const Register = () => {
                       id="reg-email"
                       type="email"
                       name="email"
-                      placeholder="you@college.edu"
+                      placeholder="you@example.com"
                       value={form.email}
                       onChange={handleChange}
                       className={inputClass}
